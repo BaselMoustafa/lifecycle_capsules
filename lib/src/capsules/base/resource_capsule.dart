@@ -8,4 +8,5 @@ abstract class ResourceCapsule<Value> extends LifeCycleCapsule<Value,Value> {
   }):super(
     lifecycleValue: value,
   );
+  
 }

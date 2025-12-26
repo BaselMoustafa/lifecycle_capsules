@@ -38,7 +38,5 @@ abstract class LifeCycleCapsule<Value,LifecycleValue> {
     lifecycleHandler?.onDispose?.call(lifecycleValue);
     baseHandler.onDispose?.call(lifecycleValue);
   }
+  
 }
-
-
-
