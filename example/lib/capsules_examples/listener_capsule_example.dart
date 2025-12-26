@@ -3,22 +3,19 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:lifecycle_capsules/lifecycle_capsules.dart';
 
-class AddListenerCapsuleExample extends StatefulWidget {
-  const AddListenerCapsuleExample({super.key});
+
+class ListenerCapsuleExample extends StatefulWidget {
+  const ListenerCapsuleExample({super.key});
 
   @override
-  State<AddListenerCapsuleExample> createState() => _AddListenerCapsuleExampleState();
+  State<ListenerCapsuleExample> createState() => _ListenerCapsuleExampleState();
 }
 
-class _AddListenerCapsuleExampleState extends CapsulesState<AddListenerCapsuleExample> {
+class _ListenerCapsuleExampleState extends CapsulesState<ListenerCapsuleExample> {
 
-  late final emailController = encapsulateTextEditingController(
-    value: TextEditingController(),
-  );
+  late final emailController = encapsulateTextEditingController();
 
-  late final passwordController = encapsulateTextEditingController(
-    value: TextEditingController(),
-  );
+  late final passwordController = encapsulateTextEditingController();
 
   @override
   Set<dynamic> get encapsulatedObjects=> {
@@ -75,30 +72,17 @@ class _LoginButton extends StatefulWidget {
 
 class __LoginButtonState extends CapsulesState<_LoginButton> {
 
-  bool isValidEmail = false;
-  bool isValidPassword = false;
+
+  late final animationController = encapsulateAnimationController();
 
   late final emailListener = encapsulateListener(
     source: widget.emailController,
-    operation: (controller){
-      isValidEmail = controller.value.text.isNotEmpty;
-      _onUserInputsChanged();
-    },
+    listener: _onUserInputsChanged,
   );
 
   late final passwordListener = encapsulateListener(
     source: widget.passwordController,
-    operation: (controller){
-      isValidPassword = controller.value.text.isNotEmpty;
-      _onUserInputsChanged();
-    },
-  );
-
-  late final animationController = encapsulateAnimationController(
-    value: AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds:500),
-    ),
+    listener: _onUserInputsChanged,
   );
 
   late final colorAnimation = ColorTween(
@@ -114,14 +98,6 @@ class __LoginButtonState extends CapsulesState<_LoginButton> {
     passwordListener,
     animationController,
   };
-
-  void _onUserInputsChanged(){
-    if(isValidEmail && isValidPassword){
-      animationController.forward();
-    } else {
-      animationController.reverse();
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -160,6 +136,16 @@ class __LoginButtonState extends CapsulesState<_LoginButton> {
   double get buttonWidth => double.infinity - 20 * (1 -animationController.value);
 
   Color? get buttonColor => colorAnimation.value;
+
+  void _onUserInputsChanged() {
+    final isValidEmail = widget.emailController.value.text.isNotEmpty;
+    final isValidPassword = widget.passwordController.value.text.isNotEmpty;
+    if(isValidEmail && isValidPassword){
+      animationController.forward();
+    } else {
+      animationController.reverse();
+    }
+  }
 
 }
 

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'capsules_examples/add_listener_capsule_example.dart';
+import 'capsules_examples/listener_capsule_example.dart';
 import 'capsules_examples/animation_controller_capsule_example.dart';
 import 'capsules_examples/text_editing_controller_capsule_example.dart';
 import 'core/to_capsule_example_screen_button.dart';
@@ -27,7 +27,7 @@ class HomeScreen extends StatelessWidget {
             ),
 
             ToCapsuleExampleScreenButton(
-              screen: AddListenerCapsuleExample(),
+              screen: ListenerCapsuleExample(),
             ),
           ],
         ),

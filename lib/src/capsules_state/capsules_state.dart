@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import '../capsules/base/lifecycle_capsule.dart';
+import '../../lifecycle_capsules.dart';
+
 
 abstract class CapsulesState<W extends StatefulWidget> extends State<W> with TickerProviderStateMixin {
 
@@ -14,7 +15,7 @@ abstract class CapsulesState<W extends StatefulWidget> extends State<W> with Tic
       object;
     }
     for (var capsule in _capsules) {
-      capsule.onInit();
+      capsule.handler.onInit?.call();
     }
   }
 
@@ -22,7 +23,7 @@ abstract class CapsulesState<W extends StatefulWidget> extends State<W> with Tic
   void didChangeDependencies() {
     super.didChangeDependencies();
     for (var attribute in _capsules) {
-      attribute.onDidChangeDependencies();
+      attribute.handler.onDidChangeDependencies?.call();
     }
   }
 
@@ -30,23 +31,38 @@ abstract class CapsulesState<W extends StatefulWidget> extends State<W> with Tic
   void deactivate() {
     super.deactivate();
     for (var attribute in _capsules) {
-      attribute.onDeactivate();
+      attribute.handler.onDeactivate?.call();
     }
   }
 
   @override
   void dispose() {
     for (var attribute in _capsules) {
-      attribute.onDispose.call();
+      attribute.handler.onDispose?.call();
     }
     super.dispose();
   }
 
-  Value addCapsule<Value ,LifecycleValue>({
-    required LifeCycleCapsule<Value,LifecycleValue> capsule
+  Value addCapsule<CapsuleType extends LifeCycleCapsule,Value>({
+    required CapsuleType capsule,
+    required Value Function(CapsuleType capsule) valueFactory
   }) {
     _capsules.add(capsule);
-    return capsule.value;
+    return valueFactory(capsule);
   }
+
+  Value addObjectCapsule<Value>({
+    required ObjectCapsule<Value> capsule,
+  })=>addCapsule(
+    capsule: capsule,
+    valueFactory: (capsule) => capsule.value,
+  );
+
+  OperationCapsule<Value> addOperationCapsule<Value>({
+    required OperationCapsule<Value> operation,
+  })=>addCapsule<OperationCapsule<Value>,OperationCapsule<Value>>(
+    capsule: operation,
+    valueFactory: (capsule) => capsule,
+  );
   
 }

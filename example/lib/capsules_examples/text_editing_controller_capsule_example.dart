@@ -13,14 +13,10 @@ class TextEditingControllerCapsuleExample extends StatefulWidget {
 class _TextEditingControllerCapsuleExampleState extends CapsulesState<TextEditingControllerCapsuleExample> {
 
   late final nameController = encapsulateTextEditingController(
-    value: TextEditingController(
-      text: "Basel Moustafa",
-    ),
+    initialValue: "Basel Moustafa",
   );
 
-  late final emailController = encapsulateTextEditingController(
-    value: TextEditingController(),
-  );
+  late final emailController = encapsulateTextEditingController();
 
   @override
   Set<dynamic> get encapsulatedObjects=> {

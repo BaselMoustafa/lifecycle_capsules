@@ -11,19 +11,21 @@ class AnimationControllerCapsuleExample extends StatefulWidget {
 class _AnimationControllerCapsuleExampleState extends CapsulesState<AnimationControllerCapsuleExample> {
 
   late final animationController = encapsulateAnimationController(
-    value: AnimationController(
-      vsync: this,
-      duration: const Duration(seconds: 1),
-    ),
-    lifecycleHandler: LifecycleHandler(
-      onInit: (animationController) => animationController.repeat(reverse: true),
-    ),
+    duration: const Duration(seconds: 1),
   );
 
   late final colorAnimation = ColorTween(
     begin: Colors.red,
     end: Colors.blue,
   ).animate(animationController);
+
+  @override
+  void initState() {
+    super.initState();
+    animationController.repeat(
+      reverse: true,
+    );
+  }
 
   @override
   Set<dynamic> get encapsulatedObjects=> {
