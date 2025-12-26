@@ -1,14 +1,15 @@
-class LifeCycleHandler<V>{
+class LifecycleHandler<LifecycleHandlerValue>{
   
-  final void Function(V value)? onInit;
-  final void Function(V value)? onDispose;
-  final void Function(V value)? onDidChangeDependencies;
-  final void Function(V value)? onDeactivate;
+  final void Function(LifecycleHandlerValue value)? onInit;
+  final void Function(LifecycleHandlerValue value)? onDispose;
+  final void Function(LifecycleHandlerValue value)? onDidChangeDependencies;
+  final void Function(LifecycleHandlerValue value)? onDeactivate;
 
-  LifeCycleHandler({
+  LifecycleHandler({
     this.onInit,
     this.onDispose,
     this.onDidChangeDependencies,
     this.onDeactivate,
   });
+
 }

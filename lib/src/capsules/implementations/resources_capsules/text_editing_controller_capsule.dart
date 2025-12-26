@@ -7,12 +7,12 @@ class TextEditingControllerCapsule extends ResourceCapsule<TextEditingController
   
   const TextEditingControllerCapsule({
     required super.value, 
-    super.lifeCycleHandler
+    super.lifecycleHandler
   });
 
   @override
-  LifeCycleHandler<TextEditingController> get baseHandler{
-    return LifeCycleHandler(
+  LifecycleHandler<TextEditingController> get baseHandler{
+    return LifecycleHandler(
       onDispose: (controller)=>controller.dispose(),
     );
   }

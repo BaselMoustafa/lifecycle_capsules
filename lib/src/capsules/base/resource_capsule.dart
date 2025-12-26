@@ -4,8 +4,8 @@ abstract class ResourceCapsule<Value> extends LifeCycleCapsule<Value,Value> {
 
   const ResourceCapsule({
     required super.value,
-    required super.lifeCycleHandler,
+    required super.lifecycleHandler,
   }):super(
-    lifeCycleValue: value,
+    lifecycleValue: value,
   );
 }

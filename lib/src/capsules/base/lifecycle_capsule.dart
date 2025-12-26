@@ -1,38 +1,43 @@
 import 'package:flutter/cupertino.dart';
 
 import '../../models/life_cycle_handler.dart';
-abstract class LifeCycleCapsule<Value,LifeCycleValue> {
+abstract class LifeCycleCapsule<Value,LifecycleValue> {
   
   final Value value;
 
-  final LifeCycleHandler<LifeCycleValue>? lifeCycleHandler;
+  final LifecycleHandler<LifecycleValue>? lifecycleHandler;
   
   @protected
-  final LifeCycleValue lifeCycleValue;
+  final LifecycleValue lifecycleValue;
 
   const LifeCycleCapsule({
     required this.value,
-    required this.lifeCycleValue,
-    required this.lifeCycleHandler,
+    required this.lifecycleValue,
+    required this.lifecycleHandler,
   });
 
   @protected
-  LifeCycleHandler<LifeCycleValue> get baseHandler;
+  LifecycleHandler<LifecycleValue> get baseHandler;
 
-  void onInit() => _effectiveHandler?.onInit?.call(lifeCycleValue); 
+  void onInit(){
+    baseHandler.onInit?.call(lifecycleValue);
+    lifecycleHandler?.onInit?.call(lifecycleValue);
+  }
 
-  void onDidChangeDependencies() => _effectiveHandler?.onDidChangeDependencies?.call(lifeCycleValue);
+  void onDidChangeDependencies(){
+    baseHandler.onDidChangeDependencies?.call(lifecycleValue);
+    lifecycleHandler?.onDidChangeDependencies?.call(lifecycleValue);
+  }
 
-  void onDeactivate() => _effectiveHandler?.onDeactivate?.call(lifeCycleValue);
+  void onDeactivate(){
+    lifecycleHandler?.onDeactivate?.call(lifecycleValue);
+    baseHandler.onDeactivate?.call(lifecycleValue);
+  }
 
-  void onDispose() => _effectiveHandler?.onDispose?.call(lifeCycleValue);
-  
-  LifeCycleHandler<LifeCycleValue>? get _effectiveHandler => LifeCycleHandler<LifeCycleValue>(
-    onInit: lifeCycleHandler?.onInit ?? baseHandler.onInit,
-    onDidChangeDependencies: lifeCycleHandler?.onDidChangeDependencies ?? baseHandler.onDidChangeDependencies,
-    onDeactivate: lifeCycleHandler?.onDeactivate ?? baseHandler.onDeactivate,
-    onDispose: lifeCycleHandler?.onDispose ?? baseHandler.onDispose,
-  );
+  void onDispose(){
+    lifecycleHandler?.onDispose?.call(lifecycleValue);
+    baseHandler.onDispose?.call(lifecycleValue);
+  }
 }
 
 

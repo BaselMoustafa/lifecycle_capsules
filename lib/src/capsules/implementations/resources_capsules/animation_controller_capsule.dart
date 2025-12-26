@@ -7,12 +7,12 @@ class AnimationControllerCapsule extends ResourceCapsule<AnimationController> {
 
   const AnimationControllerCapsule({
     required super.value, 
-    super.lifeCycleHandler
+    super.lifecycleHandler
   });
 
   @override
-  LifeCycleHandler<AnimationController> get baseHandler {
-    return LifeCycleHandler(
+  LifecycleHandler<AnimationController> get baseHandler {
+    return LifecycleHandler(
       onDispose: (controller)=> controller.dispose(),
     );
   }

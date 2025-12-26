@@ -1,12 +1,16 @@
+import '../../models/operation_carrier.dart';
 import 'lifecycle_capsule.dart';
 
-abstract class OperationCapsule<Source,Operation> extends LifeCycleCapsule<Operation,Source> {
+abstract class OperationCapsule<Source> extends LifeCycleCapsule<OperationCarrier<Source>,Source> {
+  
+  final Source source;
   
   const OperationCapsule({
-    required Source source,
+    required this.source,
     required super.value,
-    required super.lifeCycleHandler,
+    required super.lifecycleHandler,
   }):super(
-    lifeCycleValue: source,
+    lifecycleValue: source,
   );
+
 }

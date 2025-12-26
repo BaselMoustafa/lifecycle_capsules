@@ -42,8 +42,8 @@ abstract class CapsulesState<W extends StatefulWidget> extends State<W> with Tic
     super.dispose();
   }
 
-  V addCapsule<V ,L>({
-    required LifeCycleCapsule<V,L> capsule
+  Value addCapsule<Value ,LifecycleValue>({
+    required LifeCycleCapsule<Value,LifecycleValue> capsule
   }) {
     _capsules.add(capsule);
     return capsule.value;
