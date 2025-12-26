@@ -18,7 +18,7 @@ class _TextEditingControllerCapsuleExampleState extends CapsulesState<TextEditin
     ),
   );
 
-  late final TextEditingController emailController = encapsulateTextEditingController(
+  late final emailController = encapsulateTextEditingController(
     value: TextEditingController(),
   );
 

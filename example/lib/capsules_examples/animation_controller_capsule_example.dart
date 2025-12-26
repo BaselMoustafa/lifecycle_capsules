@@ -10,7 +10,7 @@ class AnimationControllerCapsuleExample extends StatefulWidget {
 
 class _AnimationControllerCapsuleExampleState extends CapsulesState<AnimationControllerCapsuleExample> {
 
-  late final AnimationController animationController = encapsulateAnimationController(
+  late final animationController = encapsulateAnimationController(
     value: AnimationController(
       vsync: this,
       duration: const Duration(seconds: 1),
@@ -20,7 +20,7 @@ class _AnimationControllerCapsuleExampleState extends CapsulesState<AnimationCon
     ),
   );
 
-  late final Animation<Color?> colorAnimation = ColorTween(
+  late final colorAnimation = ColorTween(
     begin: Colors.red,
     end: Colors.blue,
   ).animate(animationController);

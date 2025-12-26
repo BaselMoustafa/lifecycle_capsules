@@ -57,6 +57,7 @@ class _AddListenerCapsuleExampleState extends CapsulesState<AddListenerCapsuleEx
       ),
     );
   }
+  
 }
 
 class _LoginButton extends StatefulWidget {
@@ -80,7 +81,7 @@ class __LoginButtonState extends CapsulesState<_LoginButton> {
   late final emailListener = encapsulateListener(
     source: widget.emailController,
     operation: (controller){
-      isValidEmail = widget.emailController.value.text.isNotEmpty;
+      isValidEmail = controller.value.text.isNotEmpty;
       _onUserInputsChanged();
     },
   );
@@ -88,12 +89,12 @@ class __LoginButtonState extends CapsulesState<_LoginButton> {
   late final passwordListener = encapsulateListener(
     source: widget.passwordController,
     operation: (controller){
-      isValidPassword = widget.passwordController.value.text.isNotEmpty;
+      isValidPassword = controller.value.text.isNotEmpty;
       _onUserInputsChanged();
     },
   );
 
-  late final AnimationController animationController = encapsulateAnimationController(
+  late final animationController = encapsulateAnimationController(
     value: AnimationController(
       vsync: this,
       duration: const Duration(milliseconds:500),
