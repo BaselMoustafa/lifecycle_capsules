@@ -9,12 +9,10 @@ import '../../models/life_cycle_handler.dart';
 /// - [ObjectCapsule] for capsules that contain objects
 /// - [OperationCapsule] for capsules that contain operations
 abstract class LifeCycleCapsule {
-
   /// Creates a new lifecycle capsule.
   const LifeCycleCapsule();
 
   /// The lifecycle handler that contains functions invoked at different stages
   /// of the State's lifecycle.
   LifecycleHandler get handler;
-
 }

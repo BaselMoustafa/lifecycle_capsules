@@ -10,5 +10,3 @@ export 'src/capsules/base/object_capsule.dart';
 export 'src/capsules/implementations/objects_capsules/animation_controller_capsule.dart';
 export 'src/capsules/implementations/objects_capsules/listener_capsule.dart';
 export 'src/capsules/implementations/objects_capsules/text_editing_controller_capsule.dart';
-
-

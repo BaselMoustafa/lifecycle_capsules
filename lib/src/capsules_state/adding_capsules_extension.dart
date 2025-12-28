@@ -10,7 +10,6 @@ import 'capsules_state.dart';
 /// These methods automatically wrap objects in appropriate capsules and
 /// register them for lifecycle management.
 extension AddingCapsulesExtension on CapsulesState {
-
   /// Creates and encapsulates a [TextEditingController] that will be
   /// automatically disposed when the State is disposed.
   ///
@@ -34,12 +33,10 @@ extension AddingCapsulesExtension on CapsulesState {
   /// - [TextEditingControllerCapsule] for the underlying capsule implementation
   TextEditingController encapsulateTextEditingController({
     String? initialValue,
-  })=>addObjectCapsule(
+  }) => addObjectCapsule(
     capsule: TextEditingControllerCapsule(
-      value: TextEditingController(
-        text: initialValue,
-      ),
-    )
+      value: TextEditingController(text: initialValue),
+    ),
   );
 
   /// Creates and encapsulates an [AnimationController] that will be
@@ -74,18 +71,18 @@ extension AddingCapsulesExtension on CapsulesState {
     double? upperBound,
     AnimationBehavior? animationBehavior,
     double? value,
-  })=>addObjectCapsule(
+  }) => addObjectCapsule(
     capsule: AnimationControllerCapsule(
       value: AnimationController(
         value: value,
-        vsync: vsync?? this,
-        duration: duration?? const Duration(milliseconds: 500),
+        vsync: vsync ?? this,
+        duration: duration ?? const Duration(milliseconds: 500),
         reverseDuration: reverseDuration,
-        lowerBound: lowerBound?? 0,
-        upperBound: upperBound?? 1,
-        animationBehavior: animationBehavior?? AnimationBehavior.normal,
+        lowerBound: lowerBound ?? 0,
+        upperBound: upperBound ?? 1,
+        animationBehavior: animationBehavior ?? AnimationBehavior.normal,
       ),
-    )
+    ),
   );
 
   /// Encapsulates a listener that will be automatically added to a [Listenable]
@@ -116,10 +113,7 @@ extension AddingCapsulesExtension on CapsulesState {
   VoidCallback encapsulateListener<Source extends Listenable>({
     required Source source,
     required VoidCallback listener,
-  })=>addObjectCapsule(
-    capsule:  ListenerCapsule<Source>(
-      source: source,
-      value: listener,
-    )
+  }) => addObjectCapsule(
+    capsule: ListenerCapsule<Source>(source: source, value: listener),
   );
 }

@@ -7,14 +7,10 @@ import 'lifecycle_capsule.dart';
 /// set up in [State.initState] and cleaned up in [State.dispose].
 ///
 /// The operation source is accessible through the [source] property.
-abstract class OperationCapsule<Source> extends LifeCycleCapsule{
-  
+abstract class OperationCapsule<Source> extends LifeCycleCapsule {
   /// The source of the operation that this capsule manages.
   final Source source;
-  
-  /// Creates a new operation capsule with the given [source].
-  const OperationCapsule({
-    required this.source,
-  });
 
+  /// Creates a new operation capsule with the given [source].
+  const OperationCapsule({required this.source});
 }

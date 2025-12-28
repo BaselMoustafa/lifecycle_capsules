@@ -19,8 +19,8 @@ import '../../lifecycle_capsules.dart';
 ///   Set<dynamic> get encapsulatedObjects => {controller};
 /// }
 /// ```
-abstract class CapsulesState<W extends StatefulWidget> extends State<W> with TickerProviderStateMixin {
-
+abstract class CapsulesState<W extends StatefulWidget> extends State<W>
+    with TickerProviderStateMixin {
   /// Internal set of all registered lifecycle capsules.
   final Set<LifeCycleCapsule> _capsules = {};
 
@@ -74,9 +74,9 @@ abstract class CapsulesState<W extends StatefulWidget> extends State<W> with Tic
   ///
   /// Typically used internally by helper methods. Consider using [addObjectCapsule]
   /// or [addOperationCapsule] instead for type safety.
-  Value addCapsule<CapsuleType extends LifeCycleCapsule,Value>({
+  Value addCapsule<CapsuleType extends LifeCycleCapsule, Value>({
     required CapsuleType capsule,
-    required Value Function(CapsuleType capsule) valueFactory
+    required Value Function(CapsuleType capsule) valueFactory,
   }) {
     _capsules.add(capsule);
     return valueFactory(capsule);
@@ -88,12 +88,8 @@ abstract class CapsulesState<W extends StatefulWidget> extends State<W> with Tic
   ///
   /// This method is typically used internally by extension methods like
   /// [encapsulateTextEditingController].
-  Value addObjectCapsule<Value>({
-    required ObjectCapsule<Value> capsule,
-  })=>addCapsule(
-    capsule: capsule,
-    valueFactory: (capsule) => capsule.value,
-  );
+  Value addObjectCapsule<Value>({required ObjectCapsule<Value> capsule}) =>
+      addCapsule(capsule: capsule, valueFactory: (capsule) => capsule.value);
 
   /// Adds an [OperationCapsule] to the lifecycle management system.
   ///
@@ -102,9 +98,8 @@ abstract class CapsulesState<W extends StatefulWidget> extends State<W> with Tic
   /// This method is used for capsules that manage operations rather than objects.
   OperationCapsule<Value> addOperationCapsule<Value>({
     required OperationCapsule<Value> operation,
-  })=>addCapsule<OperationCapsule<Value>,OperationCapsule<Value>>(
+  }) => addCapsule<OperationCapsule<Value>, OperationCapsule<Value>>(
     capsule: operation,
     valueFactory: (capsule) => capsule,
   );
-  
 }

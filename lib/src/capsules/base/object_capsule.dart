@@ -11,14 +11,10 @@ import 'lifecycle_capsule.dart';
 /// - [TextEditingControllerCapsule]
 /// - [AnimationControllerCapsule]
 /// - [ListenerCapsule]
-abstract class ObjectCapsule<Value> extends LifeCycleCapsule{
-
+abstract class ObjectCapsule<Value> extends LifeCycleCapsule {
   /// The wrapped object that this capsule manages.
   final Value value;
 
   /// Creates a new object capsule with the given [value].
-  const ObjectCapsule({
-    required this.value,
-  });
-  
+  const ObjectCapsule({required this.value});
 }

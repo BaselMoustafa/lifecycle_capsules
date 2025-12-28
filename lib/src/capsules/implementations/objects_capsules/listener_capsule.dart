@@ -12,25 +12,17 @@ import '../../../../lifecycle_capsules.dart';
 /// proper cleanup.
 ///
 /// Use [encapsulateListener] in [CapsulesState] to create an instance.
-class ListenerCapsule<Source extends Listenable> extends ObjectCapsule<VoidCallback> {
-  
+class ListenerCapsule<Source extends Listenable>
+    extends ObjectCapsule<VoidCallback> {
   /// The [Listenable] source to which the listener will be added.
   final Source source;
 
   /// Creates a new [ListenerCapsule] with the given [source] and [value] (listener).
-  const ListenerCapsule({
-    required this.source,
-    required super.value, 
-  });
-  
+  const ListenerCapsule({required this.source, required super.value});
+
   @override
-  LifecycleHandler get handler =>LifecycleHandler(
-    onInit: ()=> source.addListener(
-      value,
-    ),
-    onDispose: ()=> source.removeListener(
-      value,
-    ),
+  LifecycleHandler get handler => LifecycleHandler(
+    onInit: () => source.addListener(value),
+    onDispose: () => source.removeListener(value),
   );
-  
 }
