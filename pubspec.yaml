@@ -8,7 +8,7 @@ issue_tracker: https://github.com/BaselMoustafa/lifecycle_capsules/issues
 topics:
   - lifecycle
   - capsules
-  - flutter_hooks
+  - flutter-hooks
 
 
 environment:
