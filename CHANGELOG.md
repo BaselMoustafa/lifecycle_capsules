@@ -1,3 +1,5 @@
-## 0.0.1
+## 1.0.0
+- `TextEditingControllerCapsule` Added
+- `AnimationControllerCapsule` Added
+- `ListenerCapsule` Added
 
-* TODO: Describe initial release.
