@@ -1,6 +1,6 @@
 
-# Lifecycle Capsule
 ![Alt text](logo.png)
+# Lifecycle Capsule
 Prevents duplication of lifecycle management code for lifecycle-aware objects, such as `TextEditingController`, `AnimationController`, and similar resources.
 
 ```dart
