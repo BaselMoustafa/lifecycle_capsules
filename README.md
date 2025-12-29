@@ -154,11 +154,11 @@ and removes it in the `dispose`
 
 In order to place the listener in `ListenerCapsule`, you need to call a function named `encapsulateListener` that is available within the `CapsulesState`.
 
+> ### **📘 Note** 
+> This capsule works with any source that inherits from Listenable, such as the `AnimationController` and `Animation`, or the `TextEditingController` and so forth.
 ```dart 
 VoidCallback encapsulateListener<Source extends Listenable>({ 
   required Source source,
   required VoidCallback listener,
 })
 ```
-> ### **📘 Note** 
-> This capsule works with any source that inherits from Listenable, such as the `AnimationController` and `Animation`, or the `TextEditingController` and so forth.
