@@ -1,4 +1,4 @@
-![Alt text](lifecycle_capsules_logo.jpg)
+![Alt text](https://raw.githubusercontent.com/BaselMoustafa/lifecycle_capsules/refs/heads/production/lifecycle_capsules_logo.jpg)
 
 # Lifecycle Capsule
 
@@ -38,14 +38,13 @@ Prevents duplication of lifecycle management code for lifecycle-aware objects, s
 ```
 
 ## Table of content
-- [Usage](#usage) 
+- [Usage](#usage)
 - [Ready-made Capsules](#ready-made-capsules)
-  - [TextEditingControllerCapsule](#text-editing-controller-capsule)
-  - [AnimationControllerCapsule](#animation-controller-capsule)
-  - [ListenerCapsule](#listener-capsule)
+  - [TextEditingControllerCapsule](#texteditingcontrollercapsule)
+  - [AnimationControllerCapsule](#animationcontrollercapsule)
+  - [ListenerCapsule](#listenercapsule)
 
 
-<a id="usage"></a>
 ## Usage
 In order to create these capsules, you must be inside a `StatefullWidget`, and all you need to do is transform the widget’s State from a regular Flutter `State` to a `CapsulesState`. Once you do that, you will have access to the functions that create the capsules, such as `encapsulateTextEditingController`, `encapsulateAnimationController`, `encapsulateListener`, and so forth
 
@@ -114,11 +113,12 @@ class _RegisterScreenState extends CapsulesState<RegisterScreen> {
 }
 ```
 
-<a id="ready-made-capsules"></a>
 ## Ready-made Capsules
 This section introduces the built-in (ready-made) capsules, explaining what each capsule does and how to use it .
 
-<a id="text-editing-controller-capsule"></a>
+
+
+
 ### `TextEditingControllerCapsule`
 Automatically disposes the given `TextEditingController` when the associated `CapsulesState` is disposed
 
@@ -130,7 +130,9 @@ TextEditingController encapsulateTextEditingController({
 })
 ```
 
-<a id="animation-controller-capsule"></a>
+
+
+
 ### `AnimationControllerCapsule`
 Automatically disposes the given `AnimationController` when the associated `CapsulesState` is disposed
 
@@ -147,7 +149,11 @@ AnimationController encapsulateAnimationController({
   double? value,
 })
 ```
-<a id="listener-capsule"></a>
+
+
+
+
+
 ### `ListenerCapsule`
 Automatically adds the given listener to the given `Listenable` source in the `initState` 
 and removes it in the `dispose`
