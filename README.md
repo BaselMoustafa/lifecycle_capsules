@@ -1,5 +1,5 @@
 
-![Alt text](logo.png)
+![Alt text](logo.jpg)
 # Lifecycle Capsule
 Prevents duplication of lifecycle management code for lifecycle-aware objects, such as `TextEditingController`, `AnimationController`, and similar resources.
 
