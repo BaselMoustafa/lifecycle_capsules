@@ -1,4 +1,4 @@
-![Alt text](logo.jpg)
+![Alt text](lifecycle_capsules_logo.jpg)
 
 # Lifecycle Capsule
 
@@ -39,10 +39,10 @@ Prevents duplication of lifecycle management code for lifecycle-aware objects, s
 
 ## Table of content
 - [Usage](#usage) 
-- [Ready-made Capsules](#readyMadeCapsules)
-  - [TextEditingControllerCapsule](#textEditingControllerCapsule)
-  - [AnimationControllerCapsule](#animationControllerCapsule)
-  - [ListenerCapsule](#listenerCapsule)
+- [Ready-made Capsules](#ready-made-capsules)
+  - [TextEditingControllerCapsule](#text-editing-controller-capsule)
+  - [AnimationControllerCapsule](#animation-controller-capsule)
+  - [ListenerCapsule](#listener-capsule)
 
 
 <a id="usage"></a>
@@ -114,11 +114,11 @@ class _RegisterScreenState extends CapsulesState<RegisterScreen> {
 }
 ```
 
-<a id="readyMadeCapsules"></a>
+<a id="ready-made-capsules"></a>
 ## Ready-made Capsules
 This section introduces the built-in (ready-made) capsules, explaining what each capsule does and how to use it .
 
-<a id="textEditingControllerCapsule"></a>
+<a id="text-editing-controller-capsule"></a>
 ### `TextEditingControllerCapsule`
 Automatically disposes the given `TextEditingController` when the associated `CapsulesState` is disposed
 
@@ -130,7 +130,7 @@ TextEditingController encapsulateTextEditingController({
 })
 ```
 
-<a id="animationControllerCapsule"></a>
+<a id="animation-controller-capsule"></a>
 ### `AnimationControllerCapsule`
 Automatically disposes the given `AnimationController` when the associated `CapsulesState` is disposed
 
@@ -147,7 +147,7 @@ AnimationController encapsulateAnimationController({
   double? value,
 })
 ```
-<a id="listenerCapsule"></a>
+<a id="listener-capsule"></a>
 ### `ListenerCapsule`
 Automatically adds the given listener to the given `Listenable` source in the `initState` 
 and removes it in the `dispose`
