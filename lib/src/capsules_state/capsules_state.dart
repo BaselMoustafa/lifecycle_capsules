@@ -74,12 +74,11 @@ abstract class CapsulesState<W extends StatefulWidget> extends State<W>
   ///
   /// Typically used internally by helper methods. Consider using [addObjectCapsule]
   /// or [addOperationCapsule] instead for type safety.
-  Value addCapsule<CapsuleType extends LifeCycleCapsule, Value>({
+  CapsuleType addCapsule<CapsuleType extends LifeCycleCapsule>({
     required CapsuleType capsule,
-    required Value Function(CapsuleType capsule) valueFactory,
   }) {
     _capsules.add(capsule);
-    return valueFactory(capsule);
+    return capsule;
   }
 
   /// Adds an [ObjectCapsule] to the lifecycle management system.
@@ -88,18 +87,10 @@ abstract class CapsulesState<W extends StatefulWidget> extends State<W>
   ///
   /// This method is typically used internally by extension methods like
   /// [encapsulateTextEditingController].
-  Value addObjectCapsule<Value>({required ObjectCapsule<Value> capsule}) =>
-      addCapsule(capsule: capsule, valueFactory: (capsule) => capsule.value);
-
-  /// Adds an [OperationCapsule] to the lifecycle management system.
-  ///
-  /// Returns the capsule itself.
-  ///
-  /// This method is used for capsules that manage operations rather than objects.
-  OperationCapsule<Value> addOperationCapsule<Value>({
-    required OperationCapsule<Value> operation,
-  }) => addCapsule<OperationCapsule<Value>, OperationCapsule<Value>>(
-    capsule: operation,
-    valueFactory: (capsule) => capsule,
-  );
+  Value addObjectCapsule<Value>({
+    required ObjectCapsule<Value> capsule,
+  }){
+    addCapsule(capsule: capsule);
+    return capsule.value;
+  }
 }

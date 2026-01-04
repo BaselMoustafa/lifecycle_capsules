@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import '../../../../lifecycle_capsules.dart';
+import '../../../lifecycle_capsules.dart';
 
 /// A capsule that automatically adds a listener to a [Listenable] source in
 /// [State.initState] and removes it in [State.dispose].
@@ -13,16 +13,20 @@ import '../../../../lifecycle_capsules.dart';
 ///
 /// Use [encapsulateListener] in [CapsulesState] to create an instance.
 class ListenerCapsule<Source extends Listenable>
-    extends ObjectCapsule<VoidCallback> {
+    extends LifeCycleCapsule {
   /// The [Listenable] source to which the listener will be added.
   final Source source;
+  final VoidCallback listener;
 
   /// Creates a new [ListenerCapsule] with the given [source] and [value] (listener).
-  const ListenerCapsule({required this.source, required super.value});
+  const ListenerCapsule({
+    required this.source, 
+    required this.listener, 
+  });
 
   @override
   LifecycleHandler get handler => LifecycleHandler(
-    onInit: () => source.addListener(value),
-    onDispose: () => source.removeListener(value),
+    onInit: () => source.addListener(listener),
+    onDispose: () => source.removeListener(listener),
   );
 }

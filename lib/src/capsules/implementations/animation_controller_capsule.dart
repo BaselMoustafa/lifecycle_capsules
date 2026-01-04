@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../models/life_cycle_handler.dart';
-import '../../base/object_capsule.dart';
+import '../../models/life_cycle_handler.dart';
+import '../base/object_capsule.dart';
 
 /// A capsule that automatically disposes an [AnimationController] when the
 /// associated [CapsulesState] is disposed.

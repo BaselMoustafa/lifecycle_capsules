@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
-import '../capsules/implementations/objects_capsules/animation_controller_capsule.dart';
-import '../capsules/implementations/objects_capsules/listener_capsule.dart';
-import '../capsules/implementations/objects_capsules/text_editing_controller_capsule.dart';
+import '../capsules/implementations/animation_controller_capsule.dart';
+import '../capsules/implementations/listener_capsule.dart';
+import '../capsules/implementations/text_editing_controller_capsule.dart';
 import 'capsules_state.dart';
 
 /// Extension methods for [CapsulesState] that provide convenient ways to
@@ -110,10 +110,13 @@ extension AddingCapsulesExtension on CapsulesState {
   ///
   /// See also:
   /// - [ListenerCapsule] for the underlying capsule implementation
-  VoidCallback encapsulateListener<Source extends Listenable>({
+  ListenerCapsule encapsulateListener<Source extends Listenable>({
     required Source source,
     required VoidCallback listener,
-  }) => addObjectCapsule(
-    capsule: ListenerCapsule<Source>(source: source, value: listener),
+  }) => addCapsule(
+    capsule: ListenerCapsule<Source>(
+      source: source, 
+      listener: listener,
+    ),
   );
 }
