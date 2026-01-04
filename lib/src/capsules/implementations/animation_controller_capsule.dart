@@ -12,7 +12,9 @@ import '../base/object_capsule.dart';
 /// Use [encapsulateAnimationController] in [CapsulesState] to create an instance.
 class AnimationControllerCapsule extends ObjectCapsule<AnimationController> {
   /// Creates a new [AnimationControllerCapsule] with the given [value].
-  const AnimationControllerCapsule({required super.value});
+  const AnimationControllerCapsule({
+    required super.value,
+  });
 
   @override
   LifecycleHandler get handler {

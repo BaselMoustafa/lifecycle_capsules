@@ -12,7 +12,9 @@ import '../base/object_capsule.dart';
 class TextEditingControllerCapsule
     extends ObjectCapsule<TextEditingController> {
   /// Creates a new [TextEditingControllerCapsule] with the given [value].
-  const TextEditingControllerCapsule({required super.value});
+  const TextEditingControllerCapsule({
+    required super.value,
+  });
 
   @override
   LifecycleHandler get handler {

@@ -1,4 +1,6 @@
-import 'lifecycle_capsule.dart';
+import 'package:flutter/material.dart';
+
+import '../../../lifecycle_capsules.dart';
 
 /// A capsule that wraps an object and manages its lifecycle.
 ///
@@ -16,5 +18,7 @@ abstract class ObjectCapsule<Value> extends LifeCycleCapsule {
   final Value value;
 
   /// Creates a new object capsule with the given [value].
-  const ObjectCapsule({required this.value});
+  const ObjectCapsule({
+    required this.value, 
+  });
 }

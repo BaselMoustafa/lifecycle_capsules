@@ -19,7 +19,7 @@ import '../../lifecycle_capsules.dart';
 ///   Set<dynamic> get encapsulatedObjects => {controller};
 /// }
 /// ```
-abstract class CapsulesState<W extends StatefulWidget> extends State<W>
+abstract class CapsulesState<WidgetType extends StatefulWidget> extends State<WidgetType>
     with TickerProviderStateMixin {
   /// Internal set of all registered lifecycle capsules.
   final Set<LifeCycleCapsule> _capsules = {};
@@ -66,6 +66,14 @@ abstract class CapsulesState<W extends StatefulWidget> extends State<W>
       attribute.handler.onDispose?.call();
     }
     super.dispose();
+  }
+
+  @override
+  void didUpdateWidget(WidgetType oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    for (var attribute in _capsules) {
+      attribute.handler.onDidUpdateWidget?.call(oldWidget, widget);
+    }
   }
 
   /// Adds a capsule to the lifecycle management system.

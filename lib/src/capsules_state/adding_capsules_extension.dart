@@ -71,7 +71,7 @@ extension AddingCapsulesExtension on CapsulesState {
     double? upperBound,
     AnimationBehavior? animationBehavior,
     double? value,
-  }) => addObjectCapsule(
+  }) => addObjectCapsule<AnimationController>(
     capsule: AnimationControllerCapsule(
       value: AnimationController(
         value: value,
@@ -114,7 +114,7 @@ extension AddingCapsulesExtension on CapsulesState {
     required Source source,
     required VoidCallback listener,
   }) => addCapsule(
-    capsule: ListenerCapsule<Source>(
+    capsule: ListenerCapsule<Source>( 
       source: source, 
       listener: listener,
     ),
