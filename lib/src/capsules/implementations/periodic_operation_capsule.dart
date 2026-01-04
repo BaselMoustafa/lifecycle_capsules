@@ -18,6 +18,7 @@ class PeriodicOperationCapsule extends LifeCycleCapsule {
 
   @override
   LifecycleHandler get handler => LifecycleHandler(
+    onInit: () => _timer,
     onDispose: () => _timer.cancel(),
   );
 }

@@ -22,6 +22,7 @@ class DelayedOperationCapsule extends LifeCycleCapsule {
 
   @override
   LifecycleHandler get handler => LifecycleHandler(
+    onInit: () => _timerCapsule,
     onDispose: () => _timerCapsule.cancel(),
   );
 }
