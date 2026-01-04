@@ -1,9 +1,12 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import '../capsules/implementations/animation_controller_capsule.dart';
 import '../capsules/implementations/listener_capsule.dart';
 import '../capsules/implementations/page_controller_capsule.dart';
 import '../capsules/implementations/scroll_controller_capsule.dart';
 import '../capsules/implementations/text_editing_controller_capsule.dart';
+import '../capsules/implementations/timer_capsule.dart';
 import 'capsules_state.dart';
 
 /// Extension methods for [CapsulesState] that provide convenient ways to
@@ -202,6 +205,77 @@ extension AddingCapsulesExtension on CapsulesState {
         onAttach: onAttach,
         onDetach: onDetach,
       ),
+    ),
+  );
+
+  /// Creates and encapsulates a [Timer] that will be
+  /// automatically cancelled when the State is disposed.
+  ///
+  /// The timer is wrapped in a [TimerCapsule] and registered for
+  /// automatic lifecycle management.
+  ///
+  /// This creates a one-shot timer that fires once after the specified [duration].
+  ///
+  /// **Important:** The returned timer must be included in the
+  /// [encapsulatedObjects] set.
+  ///
+  /// Example:
+  /// ```dart
+  /// late final timer = encapsulateTimer(
+  ///   duration: Duration(seconds: 5),
+  ///   callback: () => print('Timer fired!'),
+  /// );
+  ///
+  /// @override
+  /// Set<dynamic> get encapsulatedObjects => {timer};
+  /// ```
+  ///
+  /// See also:
+  /// - [TimerCapsule] for the underlying capsule implementation
+  /// - [encapsulatePeriodicTimer] for creating a periodic timer
+  Timer encapsulateTimer({
+    required Duration duration,
+    required void Function() callback,
+  }) => addObjectCapsule<Timer>(
+    capsule: TimerCapsule(
+      value: Timer(duration, callback),
+    ),
+  );
+
+  /// Creates and encapsulates a periodic [Timer] that will be
+  /// automatically cancelled when the State is disposed.
+  ///
+  /// The timer is wrapped in a [TimerCapsule] and registered for
+  /// automatic lifecycle management.
+  ///
+  /// This creates a periodic timer that fires repeatedly at the specified [period].
+  /// The callback receives the timer instance as a parameter.
+  ///
+  /// **Important:** The returned timer must be included in the
+  /// [encapsulatedObjects] set.
+  ///
+  /// Example:
+  /// ```dart
+  /// late final periodicTimer = encapsulatePeriodicTimer(
+  ///   period: Duration(seconds: 1),
+  ///   callback: (Timer timer) {
+  ///     print('Timer tick: ${DateTime.now()}');
+  ///   },
+  /// );
+  ///
+  /// @override
+  /// Set<dynamic> get encapsulatedObjects => {periodicTimer};
+  /// ```
+  ///
+  /// See also:
+  /// - [TimerCapsule] for the underlying capsule implementation
+  /// - [encapsulateTimer] for creating a one-shot timer
+  Timer encapsulatePeriodicTimer({
+    required Duration period,
+    required void Function(Timer) callback,
+  }) => addObjectCapsule<Timer>(
+    capsule: TimerCapsule(
+      value: Timer.periodic(period, callback),
     ),
   );
 }
