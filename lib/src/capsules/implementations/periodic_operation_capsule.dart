@@ -11,15 +11,13 @@ class PeriodicOperationCapsule extends LifeCycleCapsule {
     required this.operation,
   });
 
-  late final _timerCapsule = TimerCapsule(
-    value: Timer.periodic(
-      period, 
-      operation,
-    ),
+  late final _timer = Timer.periodic(
+    period, 
+    operation,
   );
 
   @override
   LifecycleHandler get handler => LifecycleHandler(
-    onDispose: () => _timerCapsule.handler.onDispose?.call(),
+    onDispose: () => _timer.cancel(),
   );
 }

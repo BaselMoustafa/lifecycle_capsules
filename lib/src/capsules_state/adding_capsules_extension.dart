@@ -2,11 +2,12 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import '../capsules/implementations/animation_controller_capsule.dart';
+import '../capsules/implementations/delayed_operation_capsule.dart';
 import '../capsules/implementations/listener_capsule.dart';
 import '../capsules/implementations/page_controller_capsule.dart';
+import '../capsules/implementations/periodic_operation_capsule.dart';
 import '../capsules/implementations/scroll_controller_capsule.dart';
 import '../capsules/implementations/text_editing_controller_capsule.dart';
-import '../capsules/implementations/timer_capsule.dart';
 import 'capsules_state.dart';
 
 /// Extension methods for [CapsulesState] that provide convenient ways to
@@ -208,39 +209,6 @@ extension AddingCapsulesExtension on CapsulesState {
     ),
   );
 
-  /// Creates and encapsulates a [Timer] that will be
-  /// automatically cancelled when the State is disposed.
-  ///
-  /// The timer is wrapped in a [TimerCapsule] and registered for
-  /// automatic lifecycle management.
-  ///
-  /// This creates a one-shot timer that fires once after the specified [duration].
-  ///
-  /// **Important:** The returned timer must be included in the
-  /// [encapsulatedObjects] set.
-  ///
-  /// Example:
-  /// ```dart
-  /// late final timer = encapsulateTimer(
-  ///   duration: Duration(seconds: 5),
-  ///   callback: () => print('Timer fired!'),
-  /// );
-  ///
-  /// @override
-  /// Set<dynamic> get encapsulatedObjects => {timer};
-  /// ```
-  ///
-  /// See also:
-  /// - [TimerCapsule] for the underlying capsule implementation
-  /// - [encapsulatePeriodicTimer] for creating a periodic timer
-  Timer encapsulateTimer({
-    required Duration duration,
-    required void Function() callback,
-  }) => addObjectCapsule<Timer>(
-    capsule: TimerCapsule(
-      value: Timer(duration, callback),
-    ),
-  );
 
   /// Creates and encapsulates a periodic [Timer] that will be
   /// automatically cancelled when the State is disposed.
@@ -270,12 +238,51 @@ extension AddingCapsulesExtension on CapsulesState {
   /// See also:
   /// - [TimerCapsule] for the underlying capsule implementation
   /// - [encapsulateTimer] for creating a one-shot timer
-  Timer encapsulatePeriodicTimer({
+  PeriodicOperationCapsule encapsulatePeriodicOperation({
     required Duration period,
-    required void Function(Timer) callback,
-  }) => addObjectCapsule<Timer>(
-    capsule: TimerCapsule(
-      value: Timer.periodic(period, callback),
+    required void Function(Timer timer) operation,
+  }) => addCapsule(
+    capsule: PeriodicOperationCapsule(
+      period: period,
+      operation: operation,
+    ),
+  );
+
+  /// Creates and encapsulates a delayed operation that will be
+  /// automatically cancelled when the State is disposed.
+  ///
+  /// The operation is wrapped in a [DelayedOperationCapsule] and registered for
+  /// automatic lifecycle management.
+  ///
+  /// This creates a one-shot timer that executes the provided [operation]
+  /// after the specified [delay]. The timer is automatically cancelled if
+  /// the widget is disposed before the delay expires.
+  ///
+  /// **Important:** The returned capsule must be included in the
+  /// [encapsulatedObjects] set.
+  ///
+  /// Example:
+  /// ```dart
+  /// late final delayedOperation = encapsulateDelayedOperation(
+  ///   delay: Duration(seconds: 5),
+  ///   operation: () {
+  ///     print('Operation executed after 5 seconds!');
+  ///   },
+  /// );
+  ///
+  /// @override
+  /// Set<dynamic> get encapsulatedObjects => {delayedOperation};
+  /// ```
+  ///
+  /// See also:
+  /// - [DelayedOperationCapsule] for the underlying capsule implementation
+  DelayedOperationCapsule encapsulateDelayedOperation({
+    required Duration delay,
+    required void Function() operation,
+  }) => addCapsule(
+    capsule: DelayedOperationCapsule(
+      delay: delay,
+      operation: operation,
     ),
   );
 }
