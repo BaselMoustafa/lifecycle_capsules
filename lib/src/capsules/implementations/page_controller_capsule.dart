@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 
 import '../../models/life_cycle_handler.dart';
@@ -18,7 +19,9 @@ class PageControllerCapsule extends ObjectCapsule<PageController> {
 
   @override
   LifecycleHandler get handler {
-    return LifecycleHandler(onDispose: () => value.dispose());
+    return LifecycleHandler(
+      onDispose: () => value.dispose(),
+    );
   }
 }
 

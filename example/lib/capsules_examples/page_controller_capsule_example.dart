@@ -10,14 +10,7 @@ class PageControllerCapsuleExample extends StatefulWidget {
 
 class _PageControllerCapsuleExampleState extends CapsulesState<PageControllerCapsuleExample> {
   late final pageController = encapsulatePageController(
-    initialPage: 0,
-    viewportFraction: 0.8,
-    onAttach: (ScrollPosition position) {
-      print('PageController attached: ${position.pixels}');
-    },
-    onDetach: (ScrollPosition position) {
-      print('PageController detached: ${position.pixels}');
-    },
+    initialPage: 1
   );
 
   final List<Color> pageColors = [
@@ -93,10 +86,7 @@ class _PageControllerCapsuleExampleState extends CapsulesState<PageControllerCap
                   },
                   child: const Text('Previous'),
                 ),
-                Text(
-                  'Page ${(pageController.page?.round() ?? 0) + 1} of ${pageColors.length}',
-                  style: const TextStyle(fontSize: 16),
-                ),
+     
                 ElevatedButton(
                   onPressed: () {
                     if (pageController.page! < pageColors.length - 1) {

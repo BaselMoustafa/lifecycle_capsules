@@ -13,17 +13,14 @@ class PeriodicOperationCapsuleExample extends StatefulWidget {
 class _PeriodicOperationCapsuleExampleState extends CapsulesState<PeriodicOperationCapsuleExample> {
   int _counter = 0;
   DateTime? _lastExecutionTime;
-  bool _isRunning = true;
 
   late final periodicOperation = encapsulatePeriodicOperation(
     period: const Duration(seconds: 1),
     operation: (Timer timer) {
-      if (mounted) {
-        setState(() {
-          _counter++;
-          _lastExecutionTime = DateTime.now();
-        });
-      }
+      setState(() {
+        _counter++;
+        _lastExecutionTime = DateTime.now();
+      });
     },
   );
 
@@ -100,36 +97,7 @@ class _PeriodicOperationCapsuleExampleState extends CapsulesState<PeriodicOperat
                   ),
                 ),
               const SizedBox(height: 30),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  ElevatedButton.icon(
-                    onPressed: () {
-                      setState(() {
-                        _counter = 0;
-                        _lastExecutionTime = null;
-                      });
-                    },
-                    icon: const Icon(Icons.refresh),
-                    label: const Text('Reset'),
-                  ),
-                  ElevatedButton.icon(
-                    onPressed: () {
-                      setState(() {
-                        _isRunning = !_isRunning;
-                        if (_isRunning) {
-                          // Note: The timer is already running, this is just for UI state
-                        } else {
-                          // The timer will continue but we show it as stopped in UI
-                          // In a real scenario, you might want to cancel the timer
-                        }
-                      });
-                    },
-                    icon: Icon(_isRunning ? Icons.pause : Icons.play_arrow),
-                    label: Text(_isRunning ? 'Pause' : 'Resume'),
-                  ),
-                ],
-              ),
+            
               const SizedBox(height: 30),
               const Padding(
                 padding: EdgeInsets.all(16.0),
