@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import '../capsules/implementations/animation_controller_capsule.dart';
 import '../capsules/implementations/listener_capsule.dart';
+import '../capsules/implementations/page_controller_capsule.dart';
+import '../capsules/implementations/scroll_controller_capsule.dart';
 import '../capsules/implementations/text_editing_controller_capsule.dart';
 import 'capsules_state.dart';
 
@@ -117,6 +119,89 @@ extension AddingCapsulesExtension on CapsulesState {
     capsule: ListenerCapsule<Source>( 
       source: source, 
       listener: listener,
+    ),
+  );
+
+  /// Creates and encapsulates a [PageController] that will be
+  /// automatically disposed when the State is disposed.
+  ///
+  /// The controller is wrapped in a [PageControllerCapsule] and
+  /// registered for automatic lifecycle management.
+  ///
+  /// **Important:** The returned controller must be included in the
+  /// [encapsulatedObjects] set.
+  ///
+  /// Example:
+  /// ```dart
+  /// late final pageController = encapsulatePageController(
+  ///   initialPage: 0,
+  ///   viewportFraction: 0.8,
+  ///   onAttach: (ScrollPosition position) => print('Attached'),
+  ///   onDetach: (ScrollPosition position) => print('Detached'),
+  /// );
+  ///
+  /// @override
+  /// Set<dynamic> get encapsulatedObjects => {pageController};
+  /// ```
+  ///
+  /// See also:
+  /// - [PageControllerCapsule] for the underlying capsule implementation
+  PageController encapsulatePageController({
+    int? initialPage,
+    bool keepPage = true,
+    double viewportFraction = 1.0,
+    void Function(ScrollPosition)? onAttach,
+    void Function(ScrollPosition)? onDetach,
+  }) => addObjectCapsule<PageController>(
+    capsule: PageControllerCapsule(
+      value: PageController(
+        initialPage: initialPage ?? 0,
+        keepPage: keepPage,
+        viewportFraction: viewportFraction,
+        onAttach: onAttach,
+        onDetach: onDetach,
+      ),
+    ),
+  );
+
+  /// Creates and encapsulates a [ScrollController] that will be
+  /// automatically disposed when the State is disposed.
+  ///
+  /// The controller is wrapped in a [ScrollControllerCapsule] and
+  /// registered for automatic lifecycle management.
+  ///
+  /// **Important:** The returned controller must be included in the
+  /// [encapsulatedObjects] set.
+  ///
+  /// Example:
+  /// ```dart
+  /// late final scrollController = encapsulateScrollController(
+  ///   initialScrollOffset: 0.0,
+  ///   onAttach: (ScrollPosition position) => print('Attached'),
+  ///   onDetach: (ScrollPosition position) => print('Detached'),
+  /// );
+  ///
+  /// @override
+  /// Set<dynamic> get encapsulatedObjects => {scrollController};
+  /// ```
+  ///
+  /// See also:
+  /// - [ScrollControllerCapsule] for the underlying capsule implementation
+  ScrollController encapsulateScrollController({
+    double initialScrollOffset = 0.0,
+    bool keepScrollOffset = true,
+    String? debugLabel,
+    void Function(ScrollPosition)? onAttach,
+    void Function(ScrollPosition)? onDetach,
+  }) => addObjectCapsule<ScrollController>(
+    capsule: ScrollControllerCapsule(
+      value: ScrollController(
+        initialScrollOffset: initialScrollOffset,
+        keepScrollOffset: keepScrollOffset,
+        debugLabel: debugLabel,
+        onAttach: onAttach,
+        onDetach: onDetach,
+      ),
     ),
   );
 }

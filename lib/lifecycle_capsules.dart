@@ -8,4 +8,6 @@ export 'src/capsules/base/object_capsule.dart';
 
 export 'src/capsules/implementations/animation_controller_capsule.dart';
 export 'src/capsules/implementations/listener_capsule.dart';
+export 'src/capsules/implementations/page_controller_capsule.dart';
+export 'src/capsules/implementations/scroll_controller_capsule.dart';
 export 'src/capsules/implementations/text_editing_controller_capsule.dart';
