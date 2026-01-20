@@ -41,9 +41,13 @@ extension AddingCapsulesExtension on CapsulesState {
   /// - [TextEditingControllerCapsule] for the underlying capsule implementation
   TextEditingController encapsulateTextEditingController({
     String? initialValue,
+    VoidCallback? listener,
   }) => addObjectCapsule(
     capsule: TextEditingControllerCapsule(
-      value: TextEditingController(text: initialValue),
+      listener: listener,
+      value: TextEditingController(
+        text: initialValue,
+      ),
     ),
   );
 
@@ -79,8 +83,10 @@ extension AddingCapsulesExtension on CapsulesState {
     double? upperBound,
     AnimationBehavior? animationBehavior,
     double? value,
+    VoidCallback? listener,
   }) => addObjectCapsule<AnimationController>(
     capsule: AnimationControllerCapsule(
+      listener: listener,
       value: AnimationController(
         value: value,
         vsync: vsync ?? this,
@@ -158,8 +164,10 @@ extension AddingCapsulesExtension on CapsulesState {
     double viewportFraction = 1.0,
     void Function(ScrollPosition)? onAttach,
     void Function(ScrollPosition)? onDetach,
+    VoidCallback? listener,
   }) => addObjectCapsule<PageController>(
     capsule: PageControllerCapsule(
+      listener: listener,
       value: PageController(
         initialPage: initialPage ?? 0,
         keepPage: keepPage,
@@ -199,8 +207,10 @@ extension AddingCapsulesExtension on CapsulesState {
     String? debugLabel,
     void Function(ScrollPosition)? onAttach,
     void Function(ScrollPosition)? onDetach,
+    VoidCallback? listener,
   }) => addObjectCapsule<ScrollController>(
     capsule: ScrollControllerCapsule(
+      listener: listener,
       value: ScrollController(
         initialScrollOffset: initialScrollOffset,
         keepScrollOffset: keepScrollOffset,
