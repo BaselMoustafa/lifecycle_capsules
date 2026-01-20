@@ -2,12 +2,14 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import '../capsules/implementations/animation_controller_capsule.dart';
+import '../capsules/implementations/change_notifier_capsule.dart';
 import '../capsules/implementations/delayed_operation_capsule.dart';
 import '../capsules/implementations/listener_capsule.dart';
 import '../capsules/implementations/page_controller_capsule.dart';
 import '../capsules/implementations/periodic_operation_capsule.dart';
 import '../capsules/implementations/scroll_controller_capsule.dart';
 import '../capsules/implementations/text_editing_controller_capsule.dart';
+import '../capsules/implementations/value_notifier_capsule.dart';
 import 'capsules_state.dart';
 
 /// Extension methods for [CapsulesState] that provide convenient ways to
@@ -283,6 +285,41 @@ extension AddingCapsulesExtension on CapsulesState {
     capsule: DelayedOperationCapsule(
       delay: delay,
       operation: operation,
+    ),
+  );
+
+  /// Creates and encapsulates a [ChangeNotifier] that will be
+  /// automatically disposed when the State is disposed.
+  ///
+  /// The notifier is wrapped in a [ChangeNotifierCapsule] and registered for
+  /// automatic lifecycle management.
+  ///
+  /// **Important:** The returned notifier must be included in the
+  /// [encapsulatedObjects] set.
+  ChangeNotifier encapsulateChangeNotifier({
+    required ChangeNotifier value,
+    required VoidCallback listener,
+  }) => addObjectCapsule<ChangeNotifier>(
+    capsule: ChangeNotifierCapsule(
+      value: value,
+      listener: listener,
+    ),
+  );
+  /// Creates and encapsulates a [ValueNotifier] that will be
+  /// automatically disposed when the State is disposed.
+  ///
+  /// The notifier is wrapped in a [ValueNotifierCapsule] and registered for
+  /// automatic lifecycle management.
+  ///
+  /// **Important:** The returned notifier must be included in the
+  /// [encapsulatedObjects] set.
+  ValueNotifier encapsulateValueNotifier<T>({
+    required T value,
+    required VoidCallback listener,
+  }) => addObjectCapsule<ValueNotifier<T>>(
+    capsule: ValueNotifierCapsule<T>(
+      value: ValueNotifier(value),
+      listener: listener,
     ),
   );
 }
