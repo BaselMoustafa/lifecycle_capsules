@@ -13,15 +13,26 @@ import '../base/object_capsule.dart';
 /// Use [encapsulatePageController] in [CapsulesState] to create an instance.
 class PageControllerCapsule extends ObjectCapsule<PageController> {
   /// Creates a new [PageControllerCapsule] with the given [value].
+  /// 
+  final VoidCallback? listener;
   const PageControllerCapsule({
     required super.value,
+    this.listener,
   });
 
   @override
-  LifecycleHandler get handler {
-    return LifecycleHandler(
-      onDispose: () => value.dispose(),
-    );
-  }
+  LifecycleHandler get handler => LifecycleHandler(
+    onInit: (){
+      if(listener != null){
+        value.addListener(listener!);
+      }
+    },
+    onDispose: () {
+      if(listener != null){
+        value.removeListener(listener!);
+      }
+      value.dispose();
+    },
+  );
 }
 

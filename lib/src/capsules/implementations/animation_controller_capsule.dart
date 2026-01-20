@@ -12,12 +12,25 @@ import '../base/object_capsule.dart';
 /// Use [encapsulateAnimationController] in [CapsulesState] to create an instance.
 class AnimationControllerCapsule extends ObjectCapsule<AnimationController> {
   /// Creates a new [AnimationControllerCapsule] with the given [value].
+  /// 
+  final VoidCallback? listener;
   const AnimationControllerCapsule({
     required super.value,
+    this.listener,
   });
 
   @override
-  LifecycleHandler get handler {
-    return LifecycleHandler(onDispose: () => value.dispose());
-  }
+  LifecycleHandler get handler => LifecycleHandler(
+    onInit: (){
+      if(listener != null){
+        value.addListener(listener!);
+      }
+    },
+    onDispose: () {
+      if(listener != null){
+        value.removeListener(listener!);
+      }
+      value.dispose();
+    },
+  );
 }

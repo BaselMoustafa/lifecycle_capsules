@@ -12,12 +12,26 @@ import '../base/object_capsule.dart';
 class TextEditingControllerCapsule
     extends ObjectCapsule<TextEditingController> {
   /// Creates a new [TextEditingControllerCapsule] with the given [value].
+  /// 
+  final VoidCallback? listener;
+  
   const TextEditingControllerCapsule({
     required super.value,
+    this.listener,
   });
 
   @override
-  LifecycleHandler get handler {
-    return LifecycleHandler(onDispose: () => value.dispose());
-  }
+  LifecycleHandler get handler => LifecycleHandler(
+    onInit: (){
+      if(listener != null){
+        value.addListener(listener!);
+      }
+    },
+    onDispose: () {
+      if(listener != null){
+        value.removeListener(listener!);
+      }
+      value.dispose();
+    },
+  );
 }
