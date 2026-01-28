@@ -43,6 +43,12 @@ Prevents duplication of lifecycle management code for lifecycle-aware objects, s
   - [TextEditingControllerCapsule](#texteditingcontrollercapsule)
   - [AnimationControllerCapsule](#animationcontrollercapsule)
   - [ListenerCapsule](#listenercapsule)
+  - [PageControllerCapsule](#pagecontrollercapsule)
+  - [ScrollControllerCapsule](#scrollcontrollercapsule)
+  - [PeriodicOperationCapsule](#periodicoperationcapsule)
+  - [DelayedOperationCapsule](#delayedoperationcapsule)
+  - [ChangeNotifierCapsule](#changenotifiercapsule)
+  - [ValueNotifierCapsule](#valuenotifiercapsule)
 
 
 ## Usage
@@ -127,6 +133,7 @@ In order to add a new `TextEditingController` and place it inside a `TextEditing
 ```dart 
 TextEditingController encapsulateTextEditingController({
   String? initialValue,
+  VoidCallback? listener,
 })
 ```
 
@@ -147,6 +154,7 @@ AnimationController encapsulateAnimationController({
   double? upperBound,
   AnimationBehavior? animationBehavior,
   double? value,
+  VoidCallback? listener,
 })
 ```
 
@@ -166,5 +174,95 @@ In order to place the listener in `ListenerCapsule`, you need to call a function
 VoidCallback encapsulateListener<Source extends Listenable>({ 
   required Source source,
   required VoidCallback listener,
+})
+```
+
+
+### `PageControllerCapsule`
+Automatically disposes the given `PageController` when the associated `CapsulesState` is disposed.  
+Optionally, it can also add and remove a listener to the controller.
+
+In order to add a new `PageController` and place it inside a `PageControllerCapsule`, you need to call a function named `encapsulatePageController` that is available within the `CapsulesState`.
+
+```dart
+PageController encapsulatePageController({
+  int? initialPage,
+  bool keepPage = true,
+  double viewportFraction = 1.0,
+  void Function(ScrollPosition)? onAttach,
+  void Function(ScrollPosition)? onDetach,
+  VoidCallback? listener,
+})
+```
+
+
+### `ScrollControllerCapsule`
+Automatically disposes the given `ScrollController` when the associated `CapsulesState` is disposed.  
+Optionally, it can also add and remove a listener to the controller.
+
+In order to add a new `ScrollController` and place it inside a `ScrollControllerCapsule`, you need to call a function named `encapsulateScrollController` that is available within the `CapsulesState`.
+
+```dart
+ScrollController encapsulateScrollController({
+  double initialScrollOffset = 0.0,
+  bool keepScrollOffset = true,
+  String? debugLabel,
+  void Function(ScrollPosition)? onAttach,
+  void Function(ScrollPosition)? onDetach,
+  VoidCallback? listener,
+})
+```
+
+
+### `PeriodicOperationCapsule`
+Executes a periodic operation using a `Timer.periodic` and automatically cancels it when the associated `CapsulesState` is disposed.
+
+In order to create a new periodic operation and place it inside a `PeriodicOperationCapsule`, you need to call a function named `encapsulatePeriodicOperation` that is available within the `CapsulesState`.
+
+```dart
+PeriodicOperationCapsule encapsulatePeriodicOperation({
+  required Duration period,
+  required void Function(Timer timer) operation,
+})
+```
+
+
+### `DelayedOperationCapsule`
+Executes a one-shot operation after a given delay using a `Timer`, and automatically cancels it when the associated `CapsulesState` is disposed.
+
+In order to create a delayed operation and place it inside a `DelayedOperationCapsule`, you need to call a function named `encapsulateDelayedOperation` that is available within the `CapsulesState`.
+
+```dart
+DelayedOperationCapsule encapsulateDelayedOperation({
+  required Duration delay,
+  required void Function() operation,
+})
+```
+
+
+### `ChangeNotifierCapsule`
+Automatically disposes the given `ChangeNotifier` when the associated `CapsulesState` is disposed.  
+Optionally, it can also add and remove a listener to the notifier.
+
+In order to add a new `ChangeNotifier` and place it inside a `ChangeNotifierCapsule`, you need to call a function named `encapsulateChangeNotifier` that is available within the `CapsulesState`.
+
+```dart
+TChangeNotifier encapsulateChangeNotifier<TChangeNotifier extends ChangeNotifier>({
+  required TChangeNotifier value,
+  VoidCallback? listener,
+})
+```
+
+
+### `ValueNotifierCapsule`
+Automatically disposes the given `ValueNotifier` when the associated `CapsulesState` is disposed.  
+Optionally, it can also add and remove a listener to the notifier.
+
+In order to add a new `ValueNotifier` and place it inside a `ValueNotifierCapsule`, you need to call a function named `encapsulateValueNotifier` that is available within the `CapsulesState`.
+
+```dart
+ValueNotifier<T> encapsulateValueNotifier<T>({
+  required T value,
+  VoidCallback? listener,
 })
 ```
