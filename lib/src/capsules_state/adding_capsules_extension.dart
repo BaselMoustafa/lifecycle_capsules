@@ -306,11 +306,11 @@ extension AddingCapsulesExtension on CapsulesState {
   ///
   /// **Important:** The returned notifier must be included in the
   /// [encapsulatedObjects] set.
-  ChangeNotifier encapsulateChangeNotifier({
-    required ChangeNotifier value,
-    required VoidCallback listener,
-  }) => addObjectCapsule<ChangeNotifier>(
-    capsule: ChangeNotifierCapsule(
+  TChangeNotifier encapsulateChangeNotifier<TChangeNotifier extends ChangeNotifier>({
+    required TChangeNotifier value,
+    VoidCallback? listener,
+  }) => addObjectCapsule<TChangeNotifier>(
+    capsule: ChangeNotifierCapsule<TChangeNotifier>(
       value: value,
       listener: listener,
     ),
@@ -323,9 +323,9 @@ extension AddingCapsulesExtension on CapsulesState {
   ///
   /// **Important:** The returned notifier must be included in the
   /// [encapsulatedObjects] set.
-  ValueNotifier encapsulateValueNotifier<T>({
+  ValueNotifier<T> encapsulateValueNotifier<T>({
     required T value,
-    required VoidCallback listener,
+    VoidCallback? listener,
   }) => addObjectCapsule<ValueNotifier<T>>(
     capsule: ValueNotifierCapsule<T>(
       value: ValueNotifier(value),

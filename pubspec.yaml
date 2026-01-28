@@ -1,6 +1,6 @@
 name: lifecycle_capsules
 description: Easily manage lifecycle-aware objects and operations in Flutter, preventing code duplication and simplifying resource handling.
-version: 2.0.0-beta.2
+version: 2.0.0-beta.3
 homepage: https://github.com/BaselMoustafa/lifecycle_capsules
 repository: https://github.com/BaselMoustafa/lifecycle_capsules
 documentation: https://github.com/BaselMoustafa/lifecycle_capsules#readme

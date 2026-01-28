@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../lifecycle_capsules.dart';
 
-class ChangeNotifierCapsule extends ObjectCapsule<ChangeNotifier> {
+class ChangeNotifierCapsule<T extends ChangeNotifier> extends ObjectCapsule<T> {
   
   final VoidCallback? listener;
 
